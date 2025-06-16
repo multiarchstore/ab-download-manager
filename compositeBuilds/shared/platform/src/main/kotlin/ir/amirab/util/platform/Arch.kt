@@ -20,6 +20,9 @@ sealed class Arch(val name: String) {
             X32 to listOf(
                 "x86",
             ),
+            LoongArch64 to listOf(
+                "loongarch64",
+            ),
         )
 
         fun fromString(archName: String): Arch? {
