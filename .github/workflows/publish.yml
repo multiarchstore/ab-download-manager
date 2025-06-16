@@ -31,13 +31,11 @@ jobs:
           options: --cpus=4 --platform linux/loong64 --privileged -v ${{ github.workspace }}:/work
           run: |
             cd /work
-            apt update; apt install sudo git fakeroot  default-jdk curl wget jq build-essential -y
+            export DEBIAN_FRONTEND=noninteractive            
+            apt update; apt install sudo git fakeroot  default-jdk curl wget jq build-essential gradle -y
             git config --global --add safe.directory /work
-            export DEBIAN_FRONTEND=noninteractive
-            chmod +x ./gradlew
-            ./gradlew
-            ./gradlew desktop:app:createReleaseFolderForCi
-            ./gradlew -stop
+            gradle desktop:app:createReleaseFolderForCi
+            gradle -stop
 
       - name: Upload output to artifacts
         uses: actions/upload-artifact@v4
